@@ -88,10 +88,6 @@ class StripePaymentAPI(PaymentAPI):
 
     def create_session_id(self, django_instance: Item):
 
-        # print("Instance: ", django_instance)
-        # print("Current stripe ID: ", django_instance.stripe_id)
-        # print("Current price: ", django_instance.price)
-
         if not django_instance.price:
             return None
 
@@ -101,7 +97,6 @@ class StripePaymentAPI(PaymentAPI):
             self.save_cached_product(stripe_product, django_instance)
 
         #check or create stripe price 
-        print(not django_instance.price.stripe_id)
         if not django_instance.price.stripe_id:
             stripe_price = self.create_price(django_instance)
             self.save_cached_price(stripe_price, django_instance)
@@ -127,7 +122,6 @@ class StripePaymentAPI(PaymentAPI):
                     ],
                     mode="payment",
                 )
-                print("Received session :", session)
                 break
             
             except Exception as e:

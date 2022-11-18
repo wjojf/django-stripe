@@ -8,10 +8,12 @@
 {% endblock %}
 
 {%block content%}
-
-<h1>{{item.name}}</h1>
+<h1>{{order}}</h1>
+{% for item in order_items %}
+<h3>{{item.name}}</h3>
 <p>{{item.description}}</p>
 <p>{{item.price}}</p>
+{% endfor%}
 
 <button id="buy-button">Buy</button>
 <script type="text/javascript">
@@ -26,8 +28,9 @@
     
     // Create a new Checkout Session using the server-side endpoint
     // Redirect to Stripe Session Checkout
-    fetch("{% url 'checkout-item' item.id %}", {method: 'GET', headers: {"Content-Type": "application/json"}})
+    fetch("{% url 'checkout-order' order.id %}", {method: 'GET', headers: {"Content-Type": "application/json"}})
     .then(response => {
+        console.log(response.json)
         return response.json()
     }).then(session => {
 

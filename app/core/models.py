@@ -16,11 +16,12 @@ class Price(models.Model):
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
     stripe_id = models.CharField(
         max_length=256,
+        null=True,
+        blank=True,
         default='',
         verbose_name='Stripe product ID'
     )
 
-    
     def __str__(self):
         return f'{self.unit_price}{self.currency.symbol}'
 
@@ -40,4 +41,4 @@ class Order(models.Model):
     items = models.ManyToManyField(Item)
 
     def __str__(self):
-        return f'Order {self.id} with {len(self.items)} items'
+        return f'Order {self.id} with {len(self.items.all())} items'

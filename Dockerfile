@@ -13,7 +13,7 @@ RUN mkdir /django-stripe
 WORKDIR /django-stripe
 
 # Copy the current directory contents into the container at /music_service
-ADD . /django-stripe//
+ADD . /django-stripe/
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt

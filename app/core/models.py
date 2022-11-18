@@ -34,3 +34,10 @@ class Item(models.Model):
 
     def __str__(self):
         return f'{self.id}) {self.name}'
+
+
+class Order(models.Model):
+    items = models.ManyToManyField(Item)
+
+    def __str__(self):
+        return f'Order {self.id} with {len(self.items)} items'

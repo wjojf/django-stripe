@@ -4,7 +4,7 @@
 
 {% block extrastyle %}
     <script src="https://js.stripe.com/v3/"></script>
-    {% load env_variables %}
+    {% load basic_tags %}
 {% endblock %}
 
 {%block content%}
@@ -15,16 +15,18 @@
 
 <button id="buy-button">Buy</button>
 <script type="text/javascript">
+    
     var api_key = "{% load_env_variable 'STRIPE_PUBLIC_API_KEY' %}";
     console.log(api_key);
+    
     var stripe = Stripe(api_key);
+    
     var buyButton = document.getElementById('buy-button');
     buyButton.addEventListener('click', function() {
+    
     // Create a new Checkout Session using the server-side endpoint
     // Redirect to Stripe Session Checkout
-    fetch('http://127.0.0.1:8000/api/v1/buy/1', {method: 'GET', headers: {
-                 "Content-Type": "application/json",
-            },})
+    fetch("{% url 'buy-item' item.id %}", {method: 'GET', headers: {"Content-Type": "application/json"}})
     .then(response => {
         return response.json()
     }).then(session => {
@@ -32,7 +34,7 @@
         if (session.data != null){
             stripe.redirectToCheckout({ sessionId: session.data.id })
         } else {
-            alert("Error redirecting");
+            alert(session.meta);
         }})
     });
 </script>

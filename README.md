@@ -1,3 +1,11 @@
-# Welcome to Django-Stripe!
+# Welcome to Django-Stripe!👋
 
-Documentation coming soon...
+Simple Django backend with Stripe integration.
+
+# Quick start 
+
+
+# Documentation
+
+
+

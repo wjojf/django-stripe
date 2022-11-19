@@ -10,6 +10,7 @@ COPY ./app /app
 
 WORKDIR /app
 
+RUN touch core/management/commands/create_admin.py
 RUN python3 manage.py migrate
 RUN python3 manage.py create_admin
 

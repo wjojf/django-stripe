@@ -11,4 +11,5 @@ COPY ./app /app
 WORKDIR /app
 
 RUN python3 manage.py migrate
+RUN python3 manage.py create_admin
 

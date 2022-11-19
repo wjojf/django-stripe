@@ -1,16 +1,12 @@
-FROM python:3.11
+FROM python:3.11-alpine
 
-RUN mkdir /site 
-COPY . /site
-WORKDIR /site
+ENV PATH="scripts:${PATH}"
 
-RUN pip install -r requirements.txt
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
 
-WORKDIR /site/app
+RUN mkdir /app
+COPY ./app /app
 
+WORKDIR /app
 
-EXPOSE 8000
-RUN python3 manage.py migrate
-
-ENTRYPOINT [ "python3", "manage.py" ]
-CMD [ "runserver", "0.0.0.0:8000" ]

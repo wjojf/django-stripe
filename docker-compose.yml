@@ -1,0 +1,16 @@
+version: '3.11'
+
+services:
+  app:
+    build: 
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: sh -c "python3 manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_SECRET_KEY="Your Django Secret Key here" 
+      - STRIPE_PUBLIC_API_KEY="Your Stripe Publishable Key here"
+      - STRIPE_API_KEY="Your Stripe Private Key here"

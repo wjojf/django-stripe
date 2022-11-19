@@ -4,7 +4,6 @@ from django.views import View
 from core.models import Item, Order
 
 
-
 # Create your views here.
 def buyItemView(request, pk):
     try:
@@ -17,7 +16,6 @@ def buyItemView(request, pk):
     api_client = StripePaymentAPI()
     session = api_client.create_item_session_id(django_instance)
     status = 200 if session else 400
-
 
     return JsonResponse({"data": session, "meta": None}, status=status)
 

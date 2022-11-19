@@ -1,5 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
+from django.db.models.signals import pre_save
 
 
 class Currency(models.Model):
@@ -25,6 +26,17 @@ class Price(models.Model):
     def __str__(self):
         return f'{self.unit_price}{self.currency.symbol}'
 
+@receiver(pre_save, sender=Price)
+def check_updated_price(sender, instance, update_fields=None, **kwargs):
+    try:
+        old_instance = Price.objects.get(id=instance.id)
+    except Price.DoesNotExist:
+        return 
+    
+    if instance.unit_price != old_instance.unit_price or \
+        instance.currency.name != old_instance.currency.name:
+            instance.stripe_id = ''
+
 
 class Item(models.Model):
     name = models.CharField(max_length=150, verbose_name='Item name')
@@ -35,6 +47,23 @@ class Item(models.Model):
 
     def __str__(self):
         return f'{self.id}) {self.name}'
+
+
+@receiver(pre_save, sender=Item)
+def check_updated_item(sender, instance, update_fields=None, **kwargs):
+    try:
+        old_instance = Item.objects.get(id=instance.id)
+    except Item.DoesNotExist:  # to handle initial object creation
+        return None  # just exiting from signal
+
+    # if something chaned
+    if instance.name != old_instance.name or \
+        instance.description != old_instance.description:
+            # we need new Stripe Product instance
+            instance.stripe_id = ''
+            # and new Stripe Price instance
+            instance.price.stripe_id = ''
+            instance.price.save()
 
 
 class Order(models.Model):

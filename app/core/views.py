@@ -1,9 +1,13 @@
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from core.models import Item, Order
 from django.http import JsonResponse
 
 
 # Create your views here.
+class HomeVIew(TemplateView):
+    template_name: str = 'core/home.html'
+
+
 class ItemView(DetailView):
     model = Item 
     context_object_name: str = 'item'

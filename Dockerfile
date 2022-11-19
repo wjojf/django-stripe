@@ -10,3 +10,5 @@ COPY ./app /app
 
 WORKDIR /app
 
+RUN python3 manage.py migrate
+

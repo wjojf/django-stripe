@@ -17,6 +17,8 @@ Simple Django backend with Stripe integration.
 
 4) `http://localhost:8000/` in your Browser
 
+Admin user and test instances should already be created. 
+
 
 # Documentation
 

@@ -47,11 +47,14 @@ When django instance is being changed, a new Stripe Product needs to be created.
     - When an instance of either `Item` or `Price` is changed, `stripe_id` field is removed, thus next time when a user clicks on Buy button - a request to Stripe will be sent to create new instances.
 
 
-## Administation 
+## Administation & Test instances 
 
-Basic Django Admin functionality is added to the project. When you start the project using docker, it automatically creates a superuser instance. You can check the credentials in `app.core.management.commands.create_admin.py`
- 
+Basic Django Admin functionality is added to the project. When you start the project using docker, it automatically creates a superuser instance. You can check the credentials in `app.core.management.commands.create_admin.py`. Base credentials are: `username=admin` and `password=12345`
 
+As well as basic admin user, the initializing script also provides instances for testing. Thus, there should be three routes avaliable after setting up:
+	- GET `item/1`
+	- GET `item/2`
+	- GET `order/1`
 
 
 

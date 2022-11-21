@@ -8,9 +8,9 @@ Simple Django backend with Stripe integration.
 2) Edit:
   ```
     environment:
-      - DJANGO_SECRET_KEY="Your Django Secret Key here" 
-      - STRIPE_PUBLIC_API_KEY="Your Stripe Publishable Key here"
-      - STRIPE_API_KEY="Your Stripe Private Key here"
+      - DJANGO_SECRET_KEY=Your Django Secret Key here
+      - STRIPE_PUBLIC_API_KEY=Your Stripe Publishable Key here
+      - STRIPE_API_KEY=Your Stripe Private Key here
   ```
    
 3) `docker compose up --build` in your terminal
